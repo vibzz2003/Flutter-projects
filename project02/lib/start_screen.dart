@@ -14,6 +14,7 @@ class StartScreen extends StatelessWidget {
           'assets/images/image1.png',
           width: 300,
           height: 300,
+          color: const Color.fromARGB(226, 146, 138, 138),
         ),
         const SizedBox(height: 80),
         const Text(
@@ -24,10 +25,11 @@ class StartScreen extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 50),
-        OutlinedButton(
+        OutlinedButton.icon(
           onPressed: () {},
           style: OutlinedButton.styleFrom(foregroundColor: Colors.white),
-          child: const Text('Lets have fun'),
+          icon: const Icon(Icons.arrow_right_alt),
+          label: const Text('Lets have fun'),
         ),
       ],
     ));
