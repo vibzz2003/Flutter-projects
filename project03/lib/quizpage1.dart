@@ -11,8 +11,10 @@ class QuizPage1 extends StatefulWidget {
 }
 
 class QuizPage1State extends State<QuizPage1> {
-  int?
-      selectedOptionIndex; //this variable holds the index of selected option, it is nullable if no option is selected
+  int? selectedOptionIndex;
+  //this variable holds the index of selected option, it is nullable if no option is selected
+
+  final int correctAnswerIndex = 1; //correct answer is paris
 
   void selectOption(int index) {
     //method to set the selectedoptionindex to the provided index and calls 'setState' to update the UI
@@ -25,11 +27,31 @@ class QuizPage1State extends State<QuizPage1> {
     //checks if any option is selected, if selected it prints the index of the selected option, if not slected then shows an error
     if (selectedOptionIndex != null) {
       // if the option is selected, then displays the index to the coonsole
-      print('Selected option index: $selectedOptionIndex');
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const QuizPage2()),
-      );
+      bool isCorrect = selectedOptionIndex == correctAnswerIndex;
+      String resultMessage = isCorrect ? 'Correct' : 'Incorrect, try again';
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('Result'),
+              content: Text(resultMessage),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    if (isCorrect) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const QuizPage2()),
+                      );
+                    }
+                  },
+                  child: const Text('OK'),
+                )
+              ],
+            );
+          });
     } else {
       // Show error
       showDialog(

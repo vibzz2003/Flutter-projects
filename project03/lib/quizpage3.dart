@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:project03/quizpage3.dart';
+import 'package:project03/lastpage.dart';
 
-class QuizPage2 extends StatefulWidget {
-  const QuizPage2({super.key});
+class QuizPage3 extends StatefulWidget {
+  const QuizPage3({super.key});
 
   @override
-  QuizPage2State createState() => QuizPage2State();
+  QuizPage3State createState() => QuizPage3State();
 }
 
-class QuizPage2State extends State<QuizPage2> {
-  int? selectedOptionIndex;
+class QuizPage3State extends State<QuizPage3> {
+  int? selectedoptionindex;
   final int correctAnswerIndex = 0;
 
   void selectOption(int index) {
     setState(() {
-      selectedOptionIndex = index;
+      selectedoptionindex = index;
     });
   }
 
   void submitAnswer() {
-    if (selectedOptionIndex != null) {
-      bool isCorrect = selectedOptionIndex == correctAnswerIndex;
+    if (selectedoptionindex != null) {
+      bool isCorrect = selectedoptionindex == correctAnswerIndex;
       String resultMessage =
           isCorrect ? 'Correct' : 'Incorrect, please try again';
       showDialog(
@@ -31,17 +31,16 @@ class QuizPage2State extends State<QuizPage2> {
               content: Text(resultMessage),
               actions: [
                 TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                    if (isCorrect) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const QuizPage3()));
-                    }
-                  },
-                  child: const Text('OK'),
-                )
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      if (isCorrect) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const FinalPage()));
+                      }
+                    },
+                    child: const Text('OK')),
               ],
             );
           });
@@ -55,11 +54,10 @@ class QuizPage2State extends State<QuizPage2> {
                   const Text('Please select an option to submit the answer'),
               actions: [
                 TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text('OK'),
-                )
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text('OK'))
               ],
             );
           });
@@ -68,7 +66,7 @@ class QuizPage2State extends State<QuizPage2> {
 
   Widget buildOption(int index, String option) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      padding: const EdgeInsets.all(16),
       child: InkWell(
         onTap: () {
           selectOption(index);
@@ -77,7 +75,7 @@ class QuizPage2State extends State<QuizPage2> {
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
             border: Border.all(
-              color: selectedOptionIndex == index
+              color: selectedoptionindex == index
                   ? Colors.blue
                   : Colors.grey.shade300,
             ),
@@ -87,7 +85,7 @@ class QuizPage2State extends State<QuizPage2> {
             option,
             style: TextStyle(
               fontSize: 18,
-              color: selectedOptionIndex == index ? Colors.blue : Colors.black,
+              color: selectedoptionindex == index ? Colors.blue : Colors.black,
             ),
           ),
         ),
@@ -99,30 +97,30 @@ class QuizPage2State extends State<QuizPage2> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Quiz Question 2: '),
+        title: const Text('Quiz Question 3:'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             const Text(
-              'What is the capital of India',
+              'What is the capital of China',
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
             ),
             const SizedBox(height: 20),
-            buildOption(0, 'New Delhi'),
-            buildOption(1, 'France'),
-            buildOption(2, 'New Orleans'),
-            buildOption(3, 'Kolkata'),
+            buildOption(0, 'Beijing'),
+            buildOption(1, 'Delhi'),
+            buildOption(2, 'Japan'),
+            buildOption(3, 'Mumbai'),
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: submitAnswer,
               child: const Text('Submit'),
-            ),
+            )
           ],
         ),
       ),
