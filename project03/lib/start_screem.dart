@@ -47,7 +47,12 @@ class StartScreen extends StatelessWidget {
                     .white), //sets the foreground color of the button to white
             icon: const Icon(Icons.arrow_right_alt), //adds the icon
             label: const Text(
-                'lets have some fun on our own'), //adds the text to the button
+              'lets have some fun on our own',
+              style: TextStyle(
+                  color: Color.fromARGB(237, 238, 228, 228),
+                  fontSize: 18,
+                  fontWeight: FontWeight.normal),
+            ), //adds the text to the button
           ),
         ],
       ),
