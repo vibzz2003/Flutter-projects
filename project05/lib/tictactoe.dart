@@ -8,21 +8,34 @@ class TicTacToe extends StatefulWidget {
 }
 
 class TicTacToeState extends State<TicTacToe> {
-  bool oTurn = true;
+  bool oTurn = true; //the first chance would be of O
 
   // 1st player is O
-  List<String> displayElement = ['', '', '', '', '', '', '', '', ''];
-  int oScore = 0;
-  int xScore = 0;
-  int filledBoxes = 0;
+  List<String> displayElement = [
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    ''
+  ]; //the list declaration with 9 empty strings, representing the initial state of the board
+  int oScore = 0; //initial score of O
+  int xScore = 0; //initial score of X
+  int filledBoxes = 0; //number of filled boxes in the board
 
-  @override
+  @override //overriding the build method of Stateful Widget
   Widget build(BuildContext context) {
     return Scaffold(
+      //widget whoch gives a basic structure for the visual layout of the app, including the app bars, drawers, and snack bars
       backgroundColor: Colors.indigo[900],
       body: Column(
+        //specifies the body of scaffold, containing other widgets vertically
         children: <Widget>[
           Expanded(
+            //Creates a widget that expands a child of a [Row], [Column], or [Flex] so that the child fills the available space along the flex widget's main axis.
             child: Container(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -70,10 +83,13 @@ class TicTacToeState extends State<TicTacToe> {
             ),
           ),
           Expanded(
-            flex: 4,
+            flex:
+                4, //this sets the flex factor of expanded to 4, which means that it will occupy 4 times the vertical space of other widgets with a flex factor of 1
             child: GridView.builder(
-                itemCount: 9,
+                //creates a GridView widget using builder pattern, displays the grid of widgets
+                itemCount: 9, //total grid no = 9
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    //layouts the grid to have fixed number of items per row/column
                     crossAxisCount: 3),
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
@@ -116,17 +132,19 @@ class TicTacToeState extends State<TicTacToe> {
   }
 
   void _tapped(int index) {
+    //updates the state of the game when it is called
     setState(() {
       if (oTurn && displayElement[index] == '') {
+        //if the grid box is empty and o taps it, it displays O there
         displayElement[index] = 'O';
-        filledBoxes++;
+        filledBoxes++; //increases the count of filledboxes with 1
       } else if (!oTurn && displayElement[index] == '') {
         displayElement[index] = 'X';
         filledBoxes++;
       }
 
-      oTurn = !oTurn;
-      _checkWinner();
+      oTurn = !oTurn; //toggles the value of turns
+      _checkWinner(); //is called to check the winner after each tap
     });
   }
 
@@ -135,7 +153,7 @@ class TicTacToeState extends State<TicTacToe> {
     if (displayElement[0] == displayElement[1] &&
         displayElement[0] == displayElement[2] &&
         displayElement[0] != '') {
-      _showWinDialog(displayElement[0]);
+      _showWinDialog(displayElement[0]); //calls the showwindialog
     }
     if (displayElement[3] == displayElement[4] &&
         displayElement[3] == displayElement[5] &&
@@ -182,8 +200,11 @@ class TicTacToeState extends State<TicTacToe> {
 
   void _showWinDialog(String winner) {
     showDialog(
-        barrierDismissible: false,
-        context: context,
+        //to display a dialog box on screen
+        barrierDismissible:
+            false, //dialog box cannot be dismissed by tapping outside the box
+        context:
+            context, //the context is basically passed from the parents build method
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text("\" $winner \" is Winner!!!"),
@@ -191,8 +212,8 @@ class TicTacToeState extends State<TicTacToe> {
               TextButton(
                 child: const Text("Play Again"),
                 onPressed: () {
-                  _clearBoard();
-                  Navigator.of(context).pop();
+                  _clearBoard(); //calls out clear board function
+                  Navigator.of(context).pop(); //pops the alert box
                 },
               ),
             ],
