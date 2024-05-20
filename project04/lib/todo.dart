@@ -8,29 +8,33 @@ class TodoListPage extends StatefulWidget {
 }
 
 class TodoListPageState extends State<TodoListPage> {
-  final List<Map<String, dynamic>> todoitems = [];
-  final TextEditingController textcontroller = TextEditingController();
+  final List<Map<String, dynamic>> todoitems =
+      []; //todoitems is a list with each item is a map of task and completion status
+  final TextEditingController textcontroller =
+      TextEditingController(); //textcontroller is a controller for the text input field to manage the text input
 
   void addtodoitem(String task) {
     setState(() {
       todoitems.add({'task': task, 'completed': false});
     });
-    textcontroller.clear();
+    textcontroller.clear(); //is called to clear the text input field
   }
 
   void toggletodoitem(int index) {
     setState(() {
-      todoitems[index]['completed'] = !todoitems[index]['completed'];
+      todoitems[index]['completed'] =
+          !todoitems[index]['completed']; //toggles the completetion status
     });
   }
 
   void deletetodoitem(int index) {
     setState(() {
-      todoitems.removeAt(index);
+      todoitems.removeAt(index); //removeAt removes the specific index
     });
   }
 
   void promptaddtodoitem() {
+    //shows dialog for the user to add a new task
     showDialog(
         context: context,
         builder: (BuildContext context) {
